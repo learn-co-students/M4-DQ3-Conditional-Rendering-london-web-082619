@@ -4,6 +4,30 @@ import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
 
+  state = {
+    selectedButton: 'profile'
+  }
+
+  changeSelectedButton = (e) => {
+    this.setState({
+      selectedButton: e.target.id
+    })
+  }
+
+  choosePageToRender = () => {
+    switch (this.state.selectedButton){
+      case ('profile'):
+        return <Profile />
+      case ('photo'):
+        return <Photos />
+      case ('cocktail'):
+        return <Cocktails />
+      case ('pokemon'):
+        return <Pokemon />
+      default:
+        return <Profile />
+    }
+  }
 
   render() {
 
@@ -13,11 +37,12 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
+
+    const detailsToDisplay = <div>{this.choosePageToRender()}</div>
 
     return (
       <div>
-        <MenuBar />
+        <MenuBar changeSelectedButton={this.changeSelectedButton}/>
         {detailsToDisplay}
       </div>
     )
